@@ -196,8 +196,7 @@ Se actualizaron las variables utilizadas en el role de Ansible del GitHub runner
 
 ### Instalar o recuperar el runner
 
-La reparación del runner se debe iniciar una vez de forma local en WSL. Un
-runner desconectado no puede ejecutar el workflow que lo repararía.
+La reparación del runner se debe iniciar una vez de forma local en WSL. Un runner desconectado no puede ejecutar el workflow que lo repararía.
 
 ```bash
 cd ansible
@@ -215,10 +214,8 @@ docker ps --filter name=github-runner
 docker logs --tail 100 github-runner
 ```
 
-El log debe terminar indicando que el runner está escuchando trabajos. También
-debe aparecer como **Idle** en *Settings > Actions > Runners* del repositorio.
-Después de recuperar el runner, cancela manualmente las ejecuciones antiguas que
-sigan en cola y vuelve a ejecutar solamente la más reciente.
+El log debe terminar indicando que el runner está escuchando trabajos. También debe aparecer como **Idle** en *Settings > Actions > Runners* del repositorio.
+Después de recuperar el runner, cancela manualmente las ejecuciones antiguas que sigan en cola y vuelve a ejecutar solamente la más reciente.
 
 ## Addendum
 
@@ -250,5 +247,6 @@ sigan en cola y vuelve a ejecutar solamente la más reciente.
 ***Self-hosted runners***
 <img width="1910" height="983" alt="image" src="https://github.com/user-attachments/assets/7e334805-718f-4561-aa77-1e89fa3b6e5d" />
 
-***CD***
+***Deploy***
+<img width="1913" height="984" alt="image" src="https://github.com/user-attachments/assets/b2be2e0f-cce6-4552-9de0-be992ef0e689" />
 
