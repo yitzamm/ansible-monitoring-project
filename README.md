@@ -63,8 +63,7 @@ export DOCKER_CLIENT_TIMEOUT=600
 export COMPOSE_HTTP_TIMEOUT=600
 ```
 
-El token puede ser un fine-grained PAT con permiso **Administration: Read and
-write** sobre este repositorio. No se debe guardar el token en el repositorio.
+El token puede ser un fine-grained PAT con permiso **Administration: Read and write** sobre este repositorio. No se debe guardar el token en el repositorio.
 
 ## 2. Ansible Configuration
 
@@ -72,7 +71,8 @@ El proyecto utiliza roles de Ansible para separar responsabilidades y mantener u
 
 Estructura principal:
 
-<img width="358" height="958" alt="image" src="https://github.com/user-attachments/assets/9b8a06eb-fa0d-4bf8-a641-4548e36fb7f0" />
+<img width="350" height="797" alt="image" src="https://github.com/user-attachments/assets/98782618-b00d-414c-96e4-b33e7223863d" />
+<img width="351" height="522" alt="image" src="https://github.com/user-attachments/assets/c7a45461-ed96-4522-bdc8-10482ee471d9" />
 
 Las variables fueron separadas de la siguiente manera:
 
