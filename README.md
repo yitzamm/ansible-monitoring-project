@@ -246,3 +246,9 @@ sigan en cola y vuelve a ejecutar solamente la más reciente.
 ***GMAIL Notification***
 <img width="1910" height="980" alt="image" src="https://github.com/user-attachments/assets/25dadb83-536b-452d-afaf-0a9e9eab600b" />
 <img width="1914" height="980" alt="image" src="https://github.com/user-attachments/assets/82c825c8-b6e5-4607-924a-1d93bc67d211" />
+
+***Self-hosted runners***
+<img width="1910" height="983" alt="image" src="https://github.com/user-attachments/assets/7e334805-718f-4561-aa77-1e89fa3b6e5d" />
+
+***CD***
+
