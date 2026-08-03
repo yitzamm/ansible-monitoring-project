@@ -194,7 +194,7 @@ Se creó el archivo *entrypoint.sh*, encargado de:
 - Iniciar el servicio del runner para recibir jobs.
 Se actualizaron las variables utilizadas en el role de Ansible del GitHub runner (*github_runner.yml*) para adaptarlas a la nueva configuración del runner personalizado.
 
-### Instalar o recuperar el runner
+### Install/Repair Runners
 
 La reparación del runner se debe iniciar una vez de forma local en WSL. Un runner desconectado no puede ejecutar el workflow que lo repararía.
 
@@ -206,8 +206,7 @@ ansible-galaxy collection install -r requirements.yml
 ansible-playbook -i inventory.ini runner.yml --ask-become-pass
 ```
 
-Si `group_vars/all/vault.yml` está cifrado, agrega `--ask-vault-pass` al último
-comando. Para confirmar que quedó conectado:
+Si `group_vars/all/vault.yml` está cifrado, agrega `--ask-vault-pass` al último comando. Para confirmar que quedó conectado:
 
 ```bash
 docker ps --filter name=github-runner
