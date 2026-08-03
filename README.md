@@ -32,10 +32,9 @@ La finalidad principal es crear una infraestructura reproducible, donde los comp
 
 # Flujo del proyecto
 
-## 0. Prerrequisitos del host
+## 0. Host prerequisites
 
-El runner necesita una instancia de Ubuntu en WSL. Desde PowerShell como
-administrador:
+El runner necesita una instancia de Ubuntu en WSL. Desde PowerShell como administrador:
 
 ```powershell
 wsl --install -d Ubuntu-24.04
