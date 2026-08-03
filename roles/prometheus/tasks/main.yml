@@ -1,0 +1,26 @@
+---
+- name: Crear directorio de configuracion de Prometheus
+  file:
+    path: /opt/monitoring/prometheus
+    state: directory
+    mode: "0755"
+
+- name: Copiar la configuracion de Prometheus
+  template:
+    src: prometheus.yml.j2
+    dest: /opt/monitoring/prometheus/prometheus.yml
+    mode: "0644"
+  notify: reiniciar prometheus
+
+- name: Ejecutar el contenedor de Prometheus
+  community.docker.docker_container:
+    name: "{{ prometheus_container }}"
+    image: "{{ prometheus_image }}"
+    state: started
+    restart_policy: unless-stopped
+    networks:
+      - name: "{{ docker_network }}"
+    ports:
+      - "{{ prometheus_port }}:9090"
+    volumes:
+      - /opt/monitoring/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro

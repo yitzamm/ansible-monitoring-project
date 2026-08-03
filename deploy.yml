@@ -1,0 +1,12 @@
+---
+# ===========================================================================
+# Playbook de REDESPLIEGUE (lo corre el runner de GitHub Actions en cada
+# push). NO reinstala Docker: solo reconstruye la imagen del API y reinicia
+# el contenedor con el codigo nuevo.
+# ===========================================================================
+- name: Redesplegar el API tras un nuevo commit
+  hosts: local
+  gather_facts: false
+
+  roles:
+    - role: api

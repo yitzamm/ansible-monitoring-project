@@ -1,0 +1,40 @@
+---
+- name: Validar que exista el token (PAT) de GitHub
+  assert:
+    that:
+      - github_access_token | length > 0
+      - github_owner != "TU_USUARIO_DE_GITHUB"
+    fail_msg: >-
+      Falta configurar el runner. Exporta RUNNER_PAT con tu Personal Access
+      Token y edita github_owner / github_repo en group_vars/all/vars.yml.
+
+- name: Construir la imagen del runner (runner + ansible + docker cli)
+  community.docker.docker_image:
+    name: custom-github-runner:latest
+    source: build
+    build:
+      path: "{{ project_dir }}/ansible/roles/github_runner/files"
+      dockerfile: Dockerfile.runner
+    force_source: true
+    state: present
+
+- name: Ejecutar el self-hosted runner en Docker
+  community.docker.docker_container:
+    name: "{{ github_runner_container }}"
+    image: custom-github-runner:latest
+    state: started
+    recreate: true
+    restart_policy: unless-stopped
+    stop_timeout: 60
+    init: true
+    env:
+      RUNNER_NAME: "{{ github_runner_name }}"
+      GITHUB_OWNER: "{{ github_owner }}"
+      GITHUB_REPO: "{{ github_repo }}"
+      REPO_URL: "https://github.com/{{ github_owner }}/{{ github_repo }}"
+      ACCESS_TOKEN: "{{ github_access_token }}"
+      LABELS: "{{ github_runner_labels }}"
+    volumes:
+      # El runner usa el Docker del host para construir y correr contenedores
+      - /var/run/docker.sock:/var/run/docker.sock
+  no_log: true

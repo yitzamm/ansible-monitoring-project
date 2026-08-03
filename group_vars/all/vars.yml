@@ -1,0 +1,37 @@
+---
+# Ruta raiz del proyecto (la carpeta que contiene "app/" y "ansible/").
+project_dir: "{{ playbook_dir }}/.."
+
+# Red de Docker compartida por todos los contenedores.
+docker_network: monitoring_net
+
+# --- API -------------------------------------------------------------------
+api_image: demo-api:latest
+api_container: demo-api
+api_port: 8000
+
+# --- Prometheus ------------------------------------------------------------
+prometheus_image: prom/prometheus:v2.53.0
+prometheus_container: prometheus
+prometheus_port: 9090
+
+# --- Grafana ---------------------------------------------------------------
+grafana_image: grafana/grafana:11.1.0
+grafana_container: grafana
+grafana_port: 3000
+grafana_admin_user: admin
+grafana_admin_password: admin
+
+# --- Grafana Email Alerts --------------------------------------------------
+grafana_smtp_user: "myproject.grafana.alerts@gmail.com"
+
+# --- GitHub Actions self-hosted runner -------------------------------------
+# Rellena tu usuario y repo. El token (PAT) se lee de la variable de entorno
+# RUNNER_PAT para no dejarlo escrito en texto plano.
+github_owner: "yitzamm"
+github_repo: "ansible-monitoring-project"
+github_runner_container: github-runner
+github_runner_name: wsl-runner
+# "self-hosted" es una etiqueta automatica; aqui solo van etiquetas personalizadas.
+github_runner_labels: "wsl,ansible"
+github_access_token: "{{ lookup('env', 'RUNNER_PAT') }}"

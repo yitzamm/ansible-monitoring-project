@@ -1,0 +1,21 @@
+---
+- name: Construir la imagen del API desde app/Dockerfile
+  community.docker.docker_image:
+    name: "{{ api_image }}"
+    source: build
+    build:
+      path: "{{ project_dir }}/app"
+    force_source: true
+    state: present
+
+- name: Ejecutar (o recrear) el contenedor del API
+  community.docker.docker_container:
+    name: "{{ api_container }}"
+    image: "{{ api_image }}"
+    state: started
+    recreate: true
+    restart_policy: unless-stopped
+    networks:
+      - name: "{{ docker_network }}"
+    ports:
+      - "{{ api_port }}:8000"

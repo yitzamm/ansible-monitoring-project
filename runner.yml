@@ -1,0 +1,11 @@
+---
+# Recuperacion del runner. Este playbook se ejecuta manualmente en WSL porque
+# un runner desconectado no puede actualizarse a si mismo desde GitHub Actions.
+- name: Instalar o recuperar el runner self-hosted de GitHub Actions
+  hosts: local
+  become: true
+  gather_facts: true
+
+  roles:
+    - role: docker
+    - role: github_runner

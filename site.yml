@@ -1,0 +1,16 @@
+---
+# ===========================================================================
+# Playbook de PROVISION INICIAL (se corre una vez en la maquina WSL).
+# Instala Docker y levanta: API, Prometheus, Grafana y el runner de GitHub.
+# ===========================================================================
+- name: Levantar toda la arquitectura de monitoreo con Docker
+  hosts: local
+  become: true
+  gather_facts: true
+
+  roles:
+    - role: docker          # Instala Docker Engine + red
+    - role: api             # Construye y levanta el API en Docker
+    - role: prometheus      # Levanta Prometheus y lo apunta al API
+    - role: grafana         # Levanta Grafana con datasource de Prometheus
+    - role: github_runner   # Levanta el self-hosted runner en Docker

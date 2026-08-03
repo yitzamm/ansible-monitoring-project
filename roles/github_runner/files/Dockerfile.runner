@@ -1,0 +1,40 @@
+FROM ubuntu:24.04
+
+ENV DEBIAN_FRONTEND=noninteractive
+ENV RUNNER_ALLOW_RUNASROOT=1
+
+WORKDIR /actions-runner
+
+RUN apt-get update && apt-get install -y \
+    curl \
+    git \
+    jq \
+    python3 \
+    python3-pip \
+    sudo \
+    ca-certificates \
+    docker.io \
+    libicu-dev \
+    procps \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN pip3 install --break-system-packages --no-cache-dir ansible docker
+
+ARG RUNNER_VERSION=2.336.0
+
+RUN curl --fail --show-error --location --retry 3 \
+    --output actions-runner.tar.gz \
+    https://github.com/actions/runner/releases/download/v${RUNNER_VERSION}/actions-runner-linux-x64-${RUNNER_VERSION}.tar.gz \
+    && tar xzf actions-runner.tar.gz \
+    && rm actions-runner.tar.gz
+
+RUN ./bin/installdependencies.sh
+
+COPY entrypoint.sh /entrypoint.sh
+
+RUN chmod +x /entrypoint.sh
+
+HEALTHCHECK --interval=30s --timeout=5s --start-period=30s --retries=3 \
+    CMD pgrep -x Runner.Listener >/dev/null || exit 1
+
+ENTRYPOINT ["/entrypoint.sh"]

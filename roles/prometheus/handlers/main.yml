@@ -1,0 +1,6 @@
+---
+- name: reiniciar prometheus
+  community.docker.docker_container:
+    name: "{{ prometheus_container }}"
+    state: started
+    restart: true
